@@ -1933,12 +1933,11 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     createCategory: function createCategory() {
       console.log('Creating category...');
-      axios.post('/api/categories', {
-        name: this.name
+      axios.post('/api/categories', {// name: this.name
       }).then(function (response) {
         console.log('New Category ID: ' + response.data.data.id);
       })["catch"](function (error) {
-        console.log(error);
+        console.log(error.response.data.errors);
       });
     }
   }
