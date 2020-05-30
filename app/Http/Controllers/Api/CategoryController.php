@@ -30,4 +30,18 @@ class CategoryController extends Controller
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
     }
+
+    public function update(Category $category, StoreCategoryRequest $request)
+    {
+        $category->update($request->all());
+
+        return new CategoryResource($category);
+    }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
+
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
 }
