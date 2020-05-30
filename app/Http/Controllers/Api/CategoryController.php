@@ -26,9 +26,7 @@ class CategoryController extends Controller
     {
         $category = Category::create($request->all());
 
-        return (new CategoryResource($category))
-            ->response()
-            ->setStatusCode(Response::HTTP_CREATED);
+        return new CategoryResource($category);
     }
 
     public function update(Category $category, StoreCategoryRequest $request)
