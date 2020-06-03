@@ -12,7 +12,7 @@
             </div>
             <div class="col-lg-9">
                 <div class="row mt-4">
-                    <div class="col-lg-4 col-md-6 mb-4" v-for="product in products">
+                    <div class="col-lg-4 col-md-6 mb-4" v-for="product in products.data">
                         <div class="card h-100">
                             <a href="#">
                                 <img class="card-img-top" src="http://placehold.it/700x400" alt="">
@@ -27,6 +27,8 @@
                         </div>
                     </div>
                 </div>
+
+                <pagination :data="products" @pagination-change-page="loadProducts"></pagination>
             </div>
         </div>
     </div>
@@ -37,8 +39,8 @@
         data: function () {
             return {
                 categories: [],
-                products: [],
-                loading: true
+                products: {},
+                loading: true,
             }
         },
 
@@ -58,10 +60,10 @@
                     });
             },
 
-            loadProducts: function () {
-                axios.get('/api/products')
+            loadProducts(page = 1) {
+                axios.get('/api/products?page=' + page)
                     .then((response) => {
-                        this.products = response.data.data;
+                        this.products = response.data;
                         this.loading = false;
                     })
                     .catch(function (error) {
