@@ -21,6 +21,9 @@
         "vue": "^2.5.17"
     },
     "devDependencies": {
+        "bootstrap": "^4.0.0",
+        "jquery": "^3.2",
+        "popper.js": "^1.12",
         "vue-template-compiler": "^2.6.11"
     }
 }

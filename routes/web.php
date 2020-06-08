@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'home');
 
 Route::view('categories/create', 'categories.create');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
