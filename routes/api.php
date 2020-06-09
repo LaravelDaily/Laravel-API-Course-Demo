@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
@@ -24,6 +24,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Route::put('categories/{category}', 'Api\CategoryController@update');
 //Route::delete('categories/{category}', 'Api\CategoryController@destroy');
 
-Route::apiResource('categories', 'Api\CategoryController');
+Route::group(['middleware' => ['auth:sanctum']], function () {
 
-Route::get('products', 'Api\ProductController@index');
+    Route::apiResource('categories', 'Api\CategoryController');
+
+    Route::get('products', 'Api\ProductController@index');
+
+});
