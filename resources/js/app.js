@@ -41,13 +41,10 @@ const store = new VueX.Store({
       state.commit('setUser', data)
     },
     retrieveUser (state, data) {
-      console.log(state)
-      return state.dispatch('getCSRF').then(() => {
-        return axios.get('/api/user')
-          .then((resp) => {
-            state.dispatch('setUserData', resp.data)
-          })
-      })
+      return axios.get('/api/user')
+        .then((resp) => {
+          state.dispatch('setUserData', resp.data)
+        })
     }
   }
 })
