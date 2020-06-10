@@ -35,41 +35,54 @@
 </template>
 
 <script>
-    export default {
-        data: function () {
-            return {
-                categories: [],
-                products: {},
-                loading: true,
-            }
-        },
+  import {mapActions, mapGetters} from 'vuex'
 
-        created() {
-            this.loadCategories();
-            this.loadProducts();
-        },
+  export default {
+    data: function () {
+      return {
+        categories: [],
+        products: {},
+        loading: true
+      }
+    },
 
-        methods: {
-            loadCategories: function () {
-                axios.get('/api/categories')
-                    .then((response) => {
-                        this.categories = response.data.data;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            },
+    computed: {
+      ...mapGetters(['getUser'])
+    },
 
-            loadProducts(page = 1) {
-                axios.get('/api/products?page=' + page)
-                    .then((response) => {
-                        this.products = response.data;
-                        this.loading = false;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            }
+    created () {
+      this.retrieveUser().then(() => {
+        if (this.getUser) {
+          this.loadCategories()
+          this.loadProducts()
+        } else {
+          this.$router.push({'name': 'login'})
         }
+      })
+    },
+
+    methods: {
+      ...mapActions(['retrieveUser']),
+      loadCategories: function () {
+        axios.get('/api/categories')
+          .then((response) => {
+            this.categories = response.data.data
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      },
+
+      loadProducts (page = 1) {
+        axios.get('/api/products?page=' + page)
+          .then((response) => {
+            this.products = response.data
+            this.loading = false
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      }
     }
+  }
 </script>

@@ -23,10 +23,31 @@ const store = new VueX.Store({
   state: {
     user: null
   },
-  mutations: {},
+  getters: {
+    getUser (state) {
+      return state.user
+    }
+  },
+  mutations: {
+    setUser (state, data) {
+      state.user = data
+    }
+  },
   actions: {
     getCSRF (state, data) {
       return axios.get('/sanctum/csrf-cookie')
+    },
+    setUserData (state, data) {
+      state.commit('setUser', data)
+    },
+    retrieveUser (state, data) {
+      console.log(state)
+      return state.dispatch('getCSRF').then(() => {
+        return axios.get('/api/user')
+          .then((resp) => {
+            state.dispatch('setUserData', resp.data)
+          })
+      })
     }
   }
 })

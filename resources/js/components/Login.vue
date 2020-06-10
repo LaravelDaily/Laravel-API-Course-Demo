@@ -54,15 +54,16 @@
       }
     },
     methods: {
-      ...mapActions(['getCSRF']),
+      ...mapActions(['getCSRF', 'setUserData']),
       login: function () {
         this.getCSRF().then(() => {
-          axios.post('/login', {
+          axios.post('/api/login', {
             email: this.details.email,
             password: this.details.password
           }).then(() => {
             axios.get('/api/user').then((resp) => {
-              console.log(resp)
+              this.setUserData(resp.data)
+              this.$router.push({'name': 'home'})
             })
           })
         })

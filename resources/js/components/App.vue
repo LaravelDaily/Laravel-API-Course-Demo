@@ -20,22 +20,22 @@
                     </ul>
 
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
+                        <li class="nav-item" v-show="!getUser">
                             <router-link class="nav-link" :to="{name:'login'}">
                                 Login
                             </router-link>
                         </li>
 
-<!--                        <li class="nav-item dropdown">-->
-<!--                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"-->
-<!--                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>-->
-<!--                                {{ Auth::user()->name }} <span class="caret"></span>-->
-<!--                            </a>-->
+                        <li class="nav-item dropdown" v-if="getUser">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ this.getUser.name }} <span class="caret"></span>
+                            </a>
 
 <!--                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">-->
 <!--                                <a class="dropdown-item" href="{{ route('logout') }}"-->
 <!--                                   onclick="event.preventDefault();-->
-<!--                                                     document.getElementById('logout-form').submit();">-->
+<!--                                                                             document.getElementById('logout-form').submit();">-->
 <!--                                    {{ __('Logout') }}-->
 <!--                                </a>-->
 
@@ -44,7 +44,7 @@
 <!--                                    @csrf-->
 <!--                                </form>-->
 <!--                            </div>-->
-<!--                        </li>-->
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -57,8 +57,13 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
+
   export default {
-    name: 'App'
+    name: 'App',
+    computed: {
+      ...mapGetters(['getUser'])
+    }
   }
 </script>
 
