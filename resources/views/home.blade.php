@@ -22,7 +22,7 @@
 <body>
 <div id="app">
 
-    <app></app>
+    <front-page></front-page>
 
 </div>
 </body>
