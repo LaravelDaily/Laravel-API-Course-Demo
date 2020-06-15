@@ -13,18 +13,12 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        if (!auth()->user()->tokenCan('categories-list')) {
-            abort(403, 'Unauthorized');
-        }
         $categories = Category::with('products')->get();
         return CategoryResource::collection($categories);
     }
 
     public function show(Category $category)
     {
-        if (!auth()->user()->tokenCan('categories-show')) {
-            abort(403, 'Unauthorized');
-        }
         return new CategoryResource($category);
     }
 

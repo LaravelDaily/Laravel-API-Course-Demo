@@ -25,6 +25,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Route::delete('categories/{category}', 'Api\CategoryController@destroy');
 
 Route::apiResource('categories', 'Api\CategoryController')
-    ->middleware('auth:sanctum');
+    ->middleware('auth:api');
 
 Route::get('products', 'Api\ProductController@index');
